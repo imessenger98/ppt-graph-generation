@@ -1,26 +1,20 @@
 const pptxgen = require("pptxgenjs");
-const { verticalBarGraphOptions, barGraphData } = require("./graphData");
+const {
+  verticalBarGraph,
+  HorizontalBarGraph,
+  DougNutChart,
+} = require("../lib/graph/graph-generate");
 
-function verticalBarGraph(pptx) {
-  const slide = pptx.addSlide();
-  slide.addChart(pptx.charts.BAR, barGraphData, verticalBarGraphOptions);
-}
-
-function HorizontalBarGraph(pptx) {
-  const slide = pptx.addSlide();
-  const options = { ...verticalBarGraphOptions };
-  options.barDir = "bar";
-  slide.addChart(pptx.charts.BAR, barGraphData, options);
-}
-
-//Main Function
+/**
+ * Generates a PowerPoint presentation with three types of graphs based on the graph data file.
+ * @function generatePPT
+ */
 async function generatePPT(req, res) {
   try {
     const pptx = new pptxgen();
-
     verticalBarGraph(pptx);
     HorizontalBarGraph(pptx);
-
+    DougNutChart(pptx);
     pptx
       .writeFile({
         compression: true,
