@@ -4,20 +4,19 @@
  */
 
 const express = require("express");
-const controller = require("./controllers/generate-pptxjenjs");
+const controllers = require("./controllers");
 
 const app = express();
 
 const PORT = 3000;
 
-app.get("/download", (req, res) => {
-  controller.generatePPT(req, res);
-});
+app.use("/pptxgenjs", controllers.pptxjenjsController);
+app.use("/chart-js", controllers.chartJSController);
 
 app.get("/", (req, res) => {
-  res.sendFile(__dirname + '/templates/index.html');
+  res.sendFile(__dirname + "/templates/index.html");
 });
-// Listen on port
+
 app.listen(PORT, () => {
-  console.log(`Server started on port:http://localhost:${PORT}`);
+  console.log(`Server started on port: http://localhost:${PORT}`);
 });
