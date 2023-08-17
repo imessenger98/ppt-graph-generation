@@ -1,4 +1,7 @@
 const pptxgen = require("pptxgenjs");
+const express = require("express");
+const router = express.Router();
+
 const {
   verticalBarGraph,
   HorizontalBarGraph,
@@ -9,7 +12,7 @@ const {
  * Generates a PowerPoint presentation with three types of graphs based on the graph data file.
  * @function generatePPT
  */
-async function generatePPT(req, res) {
+router.get("/generate", (req, res) => {
   try {
     const pptx = new pptxgen();
     verticalBarGraph(pptx);
@@ -29,9 +32,9 @@ async function generatePPT(req, res) {
         res.status(500).send("Error generating PowerPoint presentation.");
       });
   } catch (error) {
-    console.log(error);
+    console.error("Error generating PowerPoint presentation", error);
     res.status(500).send("Error generating PowerPoint presentation");
   }
-}
+});
 
-module.exports = { generatePPT };
+module.exports = router;
