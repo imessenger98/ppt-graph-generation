@@ -1,4 +1,4 @@
-FROM node:18
+FROM alpine:3.17
 WORKDIR /app
 COPY package.json /app
 COPY package-lock.json /app
